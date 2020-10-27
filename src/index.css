@@ -1,0 +1,401 @@
+:root{
+  --color-primary: #43CBEC;
+  --color-secondary: #43ECBF;
+  --color-white:#FFF;
+  --color-light-gray: #F8F9FC;
+  --color-gray: #CCC;
+  --color-dark-gray: #909090;
+  --color-black: #070D10;
+  --color-success:#00D884;
+  --color-error:#B00020;
+
+  --gradient: linear-gradient( 45deg, var(--color-primary), var(--color-secondary));
+
+  --border-radius: .5rem;
+
+  --shadow:8px 8px 16px #EEEEEE;
+
+  --transition:.3s;
+}
+
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  line-height: 2rem;
+  letter-spacing: .05rem;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 16px;
+  background: var(--color-light-gray);
+}
+
+.general_container{
+  flex-direction: column;
+}
+
+h1, h2{
+  text-align: center;
+  color: var(--color-black);
+}
+
+h1{
+  font-size: 2rem;
+  margin: 0 0 2rem 0;
+}
+
+h2{
+  font-size: 1.5rem;
+  margin: 1rem 0;
+}
+
+li{
+  list-style: none;
+}
+
+.container{
+  max-width: 1920px;
+  margin: 0 auto;
+  _padding: 3rem 1rem;
+}
+
+.flex{
+  display: flex;
+}
+
+.form_usuario{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+input, button{
+  border: none;
+  margin: 0 0 1rem 0;
+  padding: .5rem 0;
+  width: 100%;
+  transition: var(--transition);
+}
+
+button{
+  border-radius: var(--border-radius);
+}
+
+input{
+  border-bottom: 1px solid var(--color-gray);
+}
+
+input:focus{
+  padding: .5rem;
+}
+
+input[type="submit"]{
+  border: 1px solid var(--color-primary);
+  background:transparent;
+  color: var(--color-primary);
+  cursor:pointer;
+}
+
+input[type="submit"]:hover{
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+button.in, aside button{
+  background:var(--gradient);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+ul{
+  flex-direction: column;
+}
+
+aside .proyectos ul button.task{
+  background: var(--color-light-gray);
+  color: var(--color-dark-gray);
+  padding: .5rem;
+  margin: 1rem 0 0 0;
+}
+
+aside .proyectos ul button.task:hover{
+  box-shadow: 1px 1px 3px var(--color-gray) ;
+  transform: scale(1.01);
+}
+
+.form_usuario p{
+  text-align: center;
+  margin: 1rem 0 0 0 ;
+}
+
+.form_usuario_container{
+  background-color: var(--color-white);
+  padding: 2rem;
+  width: 100%;
+  border-radius: var(--border-radius);
+}
+
+.link{
+  color: var(--color-secondary);
+  text-decoration: none;
+}
+
+.logo{
+  font-size: 2rem;
+  background:var(--gradient);
+  background-clip: text;
+  color: transparent;
+  cursor: default;
+}
+
+.logo span{
+  font-weight: normal;
+}
+
+aside{
+  background-color: var(--color-white);
+  padding: 7rem 3rem;
+}
+
+.form_task{
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.input_container{
+  background-color: #fff;
+  width: 90%;
+  justify-content: space-between;
+}
+
+button img{
+  height: 1rem;
+  margin: .5rem;
+}
+
+.form_tarea h2{
+  margin: 2rem 0;
+}
+
+header{
+  position: fixed;
+  top: 0;
+  padding: 1rem ;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  background:var(--color-white);
+  z-index: 1000;
+}
+
+.header img{
+  height: 1rem;
+}
+
+.form_tarea .input_container{ 
+  _background: red;
+  margin: 0 auto;
+  border-radius: var(--border-radius);
+  justify-content: start;
+  align-items: center;
+}
+.form_tarea .input_container input, .form_tarea .input_container button{
+  border: none;
+  margin: 0;
+}
+.form_tarea .input_container input{
+  padding: .5rem 0 .5rem 1rem;
+  background:white;
+  color: black;
+  width: calc(100% - 3rem);
+}
+.form_tarea .input_container button{
+  background: var(--color-white);
+  width: 3rem;
+}
+
+.tareas_container h2{
+  margin: 3rem 0 1rem 0;
+}
+
+/* .listado_tarea{
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+} */
+
+.listado_tarea li{
+  padding: .5rem .5rem .5rem 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  margin: 0 1rem 1rem 1rem;
+  flex-direction: column;
+}
+
+.listado_tarea li div{
+  align-items: center;
+  justify-content: center;
+}
+
+.listado_tarea p{
+  _background: var(--color-gray);
+  border-radius: var(--border-radius);
+}
+
+ul.listado_tarea button{
+  margin: 0;
+  padding: .5rem;
+  color: var(--color-white);
+  cursor: pointer;
+  opacity: .7;
+}
+
+ul.listado_tarea button:hover{
+  opacity: 1;
+}
+
+ul.listado_tarea button.completo{
+  background: var(--color-success);
+}
+
+ul.listado_tarea button.incompleto{
+  background: var(--color-error);
+}
+
+ul.listado_tarea button.task_icon{
+  background-color: #fff;
+  padding: .5rem;
+}
+
+ul.listado_tarea button.task_icon img{
+  height: 1rem;
+}
+
+.icon.add{
+  cursor: pointer;
+}
+
+.delete_project{
+  width: 30%;
+  margin: 1rem 35%;
+  background: transparent;
+  _border: 1px solid var(--color-dark-gray);
+  color: var(--color-dark-gray);
+  cursor: pointer;
+}
+
+.delete_project:hover{
+  color: var(--color-black);
+  box-shadow: 3px 3px 6px var(--color-gray), -3px -3px 3px var(--color-white);
+}
+
+.error {
+  color: var(--color-error);
+  text-align: center;
+}
+
+.mensaje{
+  background: #FFFFFF;
+  padding: 1rem;
+  border-radius: var(--border-radius);
+  border: 1px solid var(--color-light-gray);
+  box-shadow: var(--shadow);
+  text-align: center;
+}
+
+.nota{
+  text-align: center;
+  padding: 1rem 2rem;
+  background-color: var(--color-error);
+  color: var(--color-white);
+  margin: 2rem auto;
+  width: 20rem;
+  opacity: .7;
+  border-radius: var(--border-radius);
+}
+
+
+
+
+
+
+/* animatinos */ 
+
+.tarea-enter,
+.proyecto-enter {
+  opacity: 0;
+}
+.tarea-enter-active,
+.proyecto-enter-active {
+  opacity: 1;
+  transition: opacity 200ms;
+}
+.tarea-exit,
+.proyecto-exit {
+  opacity: 1;
+}
+.tarea-exit-active,
+.proyecto-exit-active {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+
+
+
+@media(min-width: 960px){
+  .container{
+    _padding: 3rem;
+  }
+  .general_container{
+    flex-direction: row;
+  }
+  aside{
+    padding: 3rem;
+    width: 20rem;
+    min-height: 100vh;
+  }
+  .seccion_principal{
+    width: 80%;
+  }
+  .seccion_principal main{
+    height: calc(100vh - 4rem);
+    overflow-y: scroll;
+    position: relative;
+  }
+  .form_usuario{
+    height: 100vh;
+  }
+  .form_usuario_container{
+    width: 30%;
+  }
+
+  header{
+    position: relative;
+    background: var(--color-light-gray);
+    height: 4rem;
+  }
+  .input_container{
+    background-color: #fff;
+    width: 40%;
+  }
+
+  .listado_tarea li{
+    flex-direction: row;
+  }
+  
+
+
+
+ 
+}
+
