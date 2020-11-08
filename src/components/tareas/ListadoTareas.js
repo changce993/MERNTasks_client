@@ -19,7 +19,7 @@ const ListadoTareas = () => {
     const [proyectoActual] = proyecto;
 
     const onClickEliminar = () => {
-        eliminarProyecto(proyectoActual.id)
+        eliminarProyecto(proyectoActual._id)
     }
     
     return (
@@ -32,7 +32,7 @@ const ListadoTareas = () => {
                 :
                 <TransitionGroup>
                     { tareasProyecto.map(tarea => {
-                        return <CSSTransition timeout={200} classNames='tarea' key={tarea.id}>
+                        return <CSSTransition timeout={200} classNames='tarea' key={tarea._id}>
                             <Tarea  tarea={tarea}/>
                         </CSSTransition>
                     })}

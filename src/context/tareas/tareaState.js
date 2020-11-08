@@ -1,16 +1,15 @@
 import React, {useReducer} from 'react';
 
-import { v4 as uuidv4 } from 'uuid';
-
 import TareaReducer from './tareaReducer'
 import TareaContext from './tareaContext'
+
+import clienteAxios from '../../config/axios'
 
 import {
     TAREAS_PROYECTO,
     AGREGAR_TAREA,
     VALIDAR_TAREA,
     ELIMINAR_TAREA,
-    ESTADO_TAREA,
     TAREA_ACTUAL,
     ACTUALIZAR_TAREA,
     LIMPIAR_TAREA
@@ -18,42 +17,37 @@ import {
 
 const TareaState = ({children}) => {
     const initialState = {
-        tareas : [
-            {id:1, proyectoId:1 ,nombre: 'Definir branding', estado: true},
-            {id:2, proyectoId:2 ,nombre: 'Comprar dominio y hosting', estado: true},
-            {id:3, proyectoId:3 ,nombre: 'Desarrollar el backend', estado: true},
-            {id:4, proyectoId:4 ,nombre: 'Diseñar la UI', estado: true},
-            {id:5, proyectoId:1 ,nombre: 'Codear el frontend', estado: false},
-            {id:6, proyectoId:2 ,nombre: 'Hacer deploy', estado: false},
-            {id:7, proyectoId:3 ,nombre: 'Codear el frontend', estado: false},
-            {id:8, proyectoId:1 ,nombre: 'Definir branding', estado: true},
-            {id:9, proyectoId:2 ,nombre: 'Comprar dominio y hosting', estado: true},
-            {id:10, proyectoId:3 ,nombre: 'Desarrollar el backend', estado: true},
-            {id:11, proyectoId:4 ,nombre: 'Diseñar la UI', estado: true},
-            {id:12, proyectoId:1 ,nombre: 'Codear el frontend', estado: false},
-            {id:13, proyectoId:2 ,nombre: 'Hacer deploy', estado: false}
-        ],
-        tareasProyecto: null,
+        tareasProyecto: [],
         errorTarea: false,
         tareaSeleccionada: null
     }
 
     const [state, dispatch] = useReducer(TareaReducer, initialState);
 
-    const obtenerTareas = proyectoId => {
-        dispatch({
-            type: TAREAS_PROYECTO,
-            payload: proyectoId
-        })
+    const obtenerTareas = async proyecto  => {
+        try {
+            const resultado = await clienteAxios.get('/api/tareas', {params : {proyecto} });
+
+            dispatch({
+                type: TAREAS_PROYECTO,
+                payload: resultado.data.tareas
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const agregarTarea = tarea => {
-        tarea.id = uuidv4()
-
-        dispatch({
-            type:AGREGAR_TAREA,
-            payload: tarea
-        })
+    const agregarTarea = async tarea => { 
+        try {
+            const resultado = await clienteAxios.post('/api/tareas', tarea);
+            console.log(resultado)
+            dispatch({
+                type:AGREGAR_TAREA, 
+                payload: tarea
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const validarTarea = () => {
@@ -62,30 +56,36 @@ const TareaState = ({children}) => {
         })
     }
 
-    const eliminarTarea = id => {
-        dispatch({
-            type:ELIMINAR_TAREA,
-            payload: id
-        })
+    const eliminarTarea = async (id, proyecto) => {
+        await clienteAxios.delete(`/api/tareas/${id}`, { params: {proyecto}})
+        
+        try {
+            dispatch({
+                type:ELIMINAR_TAREA,
+                payload: id
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
-    const modificarEstadoTarea = tarea => {
-        dispatch({
-            type: ESTADO_TAREA,
-            payload: tarea
-        })
+    const actualizarTarea = async tarea => {
+        const resultado = await clienteAxios.put(`/api/tareas/${tarea._id}`, tarea)
+        console.log(resultado)
+
+        try {
+            dispatch({
+                type: ACTUALIZAR_TAREA,
+                payload: resultado.data.tarea
+            })
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     const seleccionarTarea = tarea => {
         dispatch({
             type:TAREA_ACTUAL,
-            payload: tarea
-        })
-    }
-
-    const actualizarTarea = tarea => {
-        dispatch({
-            type: ACTUALIZAR_TAREA,
             payload: tarea
         })
     }
@@ -99,7 +99,6 @@ const TareaState = ({children}) => {
     return (
         <TareaContext.Provider
             value={{
-                tareas: state.tareas,
                 tareasProyecto: state.tareasProyecto, 
                 errorTarea: state.errorTarea,
                 tareaSeleccionada: state.tareaSeleccionada,
@@ -107,7 +106,6 @@ const TareaState = ({children}) => {
                 agregarTarea,
                 validarTarea,
                 eliminarTarea,
-                modificarEstadoTarea,
                 seleccionarTarea,
                 actualizarTarea,
                 limpiarTarea

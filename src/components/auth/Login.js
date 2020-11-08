@@ -1,7 +1,24 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import AlertaContext from '../../context/alertas/AlertaContext'
+import AuthContext from '../../context/auth/authContext'
 
-const Login = () => {
+const Login = (props) => {
+
+    const { alerta, mostrarAlerta } = useContext(AlertaContext)
+    
+    const { autenticado, mensaje, iniciarSesion } = useContext(AuthContext)
+
+    useEffect(() => {
+        if(autenticado){
+            props.history.push('/proyectos')
+        }
+
+        if(mensaje){
+            mostrarAlerta(mensaje.msg, mensaje.categoria)
+        }
+        // eslint-disable-next-line
+    }, [autenticado, mensaje])
 
     const [ user, setUser ] = useState({
         email: '',
@@ -20,8 +37,11 @@ const Login = () => {
     const handleSubmit = e => {
         e.preventDefault()
 
-        console.log( email )
-        console.log(password)
+        if(email.trim() === '' || password.trim() === ''){
+            mostrarAlerta('Todos los campos son obligatorios', 'alerta-error')
+        }
+
+        iniciarSesion({email, password})
     }
 
     return (
@@ -29,13 +49,15 @@ const Login = () => {
             className="container flex form_usuario"
             onSubmit={handleSubmit}
         >
+
+            {alerta ? ( <div className={`alerta ${alerta.categoria}`}>{alerta.msg}</div> ) : null}
             <h1 className="logo">MERN<span>Tasks</span></h1>
 
             <div className="form_usuario_container">
                 <h1>Login</h1>
 
                 <div className="input_form_usuario">
-                    <input required
+                    <input 
                         type="email"
                         placeholder="Email"
                         name="email"
